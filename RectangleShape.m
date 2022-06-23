@@ -1,15 +1,15 @@
 close all
-% Интервал:
+% Interval:
 a=0;
 b1=5;
 b2=20;
-% Число узлов:
+% Number of nodes:
 NRange=[10 25 100 1000];
 k=1;
 d_mean_g=zeros(length(NRange),1);
 d_min_g=d_mean_g;
 for N=NRange
-    % Векторы координат:
+    % Coordinate vectors:
     x=zeros(N,1);
     y=zeros(N,1);
     for i=1: N
@@ -17,7 +17,7 @@ for N=NRange
         y(i)=a+(b2-a)*rand;
     end
     
-    % Изображение полученного прямоугольника:
+    % Image of the resulting rectangle:
     figure
     plot(x,y,'o','MarkerEdgeColor',[0 0 1],...
         'MarkerFaceColor',[0 0 0])
@@ -25,11 +25,11 @@ for N=NRange
     xlim([a max(b2,b1)])
     ylim([a max(b2,b1)])
     figure
-    %% Вычисление среднего расстояния
-    d=zeros(N,N); % Матрица расстояний между всеми узлами
-    d_sum=zeros(N,1); % Вектор сумм расстояний для одного узла
-    d_sum_mean=zeros(N,1); % Вектор средних значений расстояний между узлами
-    d_mean=0; % Среднее расстояние между узлами
+    %% Average Distance Calculation
+    d=zeros(N,N); % Distance matrix between all nodes
+    d_sum=zeros(N,1); % The vector of sums of distances between all nodes
+    d_sum_mean=zeros(N,1); % Vector sum of distances for one node
+    d_mean=0; % Average distance between nodes
     for i=1:N
         n_1=0;
         for j=1:N
@@ -49,8 +49,7 @@ for N=NRange
     end
     d_mean=d_mean/(N-1);
     
-    % Построение окружности с радиусом, равным среднему расстоянию м/ду
-    % узлами
+    % Constructing a circle with a radius equal to the average distance between nodes
     for i=1:N
         viscircles([x(i) y(i)],d_mean,'LineStyle','--','LineWidth',1);
     end
@@ -59,16 +58,11 @@ for N=NRange
     xlim([a max(b2,b1)])
     ylim([a max(b2,b1)])
     
-    %% Вычисление минимального среднего расстояния между узлами
-    % Заменим нули в матрице расстояний значениями NaN:
+    %% Calculating the minimum average distance between nodes
     d(d==0)=NaN;
-    % Найдем минимальные расстояния между узлами для каждого узла:
     d_min=min(d);
-    % Найдем среднее минимальное расстояние между узлами
     d_min=sum(d_min(2:length(d_min)))/(length(d_min)-1);
     
-    % Построим окружности, показывающие среднее минимальное расстояние между
-    % узлами:
     for i=1:N
         viscircles([x(i) y(i)],d_min,'LineStyle','-','EdgeColor',...
             [0 1 0],'LineWidth',1);
@@ -76,15 +70,13 @@ for N=NRange
     d_mean_g(k)=d_mean;
     d_min_g(k)=d_min;
     k=k+1;
-    display('Среднее расстояние между случайными узлами:')
+    display('Г‘Г°ГҐГ¤Г­ГҐГҐ Г°Г Г±Г±ГІГ®ГїГ­ГЁГҐ Г¬ГҐГ¦Г¤Гі Г±Г«ГіГ·Г Г©Г­Г»Г¬ГЁ ГіГ§Г«Г Г¬ГЁ:')
     display(d_mean)
-    display('Среднее минимальное расстояние между случайными узлами:')
+    display('Г‘Г°ГҐГ¤Г­ГҐГҐ Г¬ГЁГ­ГЁГ¬Г Г«ГјГ­Г®ГҐ Г°Г Г±Г±ГІГ®ГїГ­ГЁГҐ Г¬ГҐГ¦Г¤Гі Г±Г«ГіГ·Г Г©Г­Г»Г¬ГЁ ГіГ§Г«Г Г¬ГЁ:')
     display(d_min)
     
     plot(x,y,'o','MarkerEdgeColor',[0 0 1],...
-        'MarkerFaceColor',[0 0 0]) % .. в результате получим изображение
-    
-    %% Покажем для одного узла, который ближе всего к центру
+        'MarkerFaceColor',[0 0 0])
     figure
     plot(x,y,'o','MarkerEdgeColor',[0 0 1])
     xlim([a max(b2,b1)])
